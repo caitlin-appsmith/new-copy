@@ -12,14 +12,19 @@ const chart = c3.generate({
       console.log("onlink", data);
       FileMaker.PerformScript ("Get data from chart", JSON.stringify(data));
     },
-    type: "donut",
+    type: "bar",
 
-    colors: {apples: "green", oranges: "orange", pears: "blue"},
+    colors: {apples: "green", oranges: "orange", pears: "blue", frogs: "pink"},
     columns: columns
 
   },
-  donut: { padAngle: .05 },
-});}
+  
+});
+window.updateChart = function (data) {
+  const columns = JSON.parse (data);
+  console.log(columns);
+  chart.load({columns: columns, unload: ["oranges","apples"]})
+}}
 
 window.loadChart = loadChart;
 // const chart2 = c3.generate({
