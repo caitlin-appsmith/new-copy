@@ -1,16 +1,21 @@
 import c3 from "c3";
 
-function loadChart () {
+function loadChart (data) {
+  console.log(data);
+
+  const columns = JSON.parse(data);
+  console.log(columns);
 const chart = c3.generate({
   bindto: '#chart',
   data: {
+    onclick: function (data) {
+      console.log("onlink", data);
+      FileMaker.PerformScript ("Get data from chart", JSON.stringify(data));
+    },
     type: "donut",
 
-    colors: {apples: "green", oranges: "orange"},
-    columns: [
-      ['apples', 90, 200, 100, 400, 150, 250],
-      ['oranges', 50, 20, 10, 40, 15, 25]
-    ]
+    colors: {apples: "green", oranges: "orange", pears: "blue"},
+    columns: columns
 
   },
   donut: { padAngle: .05 },
