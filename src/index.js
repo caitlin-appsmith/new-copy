@@ -1,10 +1,15 @@
 import c3 from "c3";
 
-function loadChart (data) {
-  console.log(data);
+function loadChart (json) {
+  console.log(json);
 
-  const columns = JSON.parse(data);
-  console.log(columns);
+  const obj = JSON.parse(json);
+  console.log(obj);
+ 
+  const chartType = obj.type;
+  const columns = obj.data;
+  console.log(columns,chartType);
+
 const chart = c3.generate({
   bindto: '#chart',
   data: {
@@ -12,7 +17,7 @@ const chart = c3.generate({
       console.log("onlink", data);
       FileMaker.PerformScript ("Get data from chart", JSON.stringify(data));
     },
-    type: "bar",
+    type: chartType,
 
     colors: {apples: "green", oranges: "orange", pears: "blue", frogs: "pink"},
     columns: columns
