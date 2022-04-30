@@ -1,4 +1,5 @@
 import c3 from "c3";
+import { chart } from "c3";
 
 function loadChart (json) {
   console.log(json);
@@ -28,8 +29,8 @@ const chart = c3.generate({
     ]
   },
   color: {
-    pattern: pattern,
-    pattern: ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+    pattern: ['purple', '#aec7e8', 'red', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5'],
+    // pattern: pattern,
 },
   grid: {
   y: {
@@ -58,9 +59,12 @@ window.updateChart = function (data) {
   const columns = JSON.parse (data);
   console.log(columns);
   chart.load({columns: columns, unload: ["oranges","apples"]})
-}}
+};
 
-
+window.transformChart = function (type) {
+  console.log(type);
+  chart.transform(type);
+}};
 window.loadChart = loadChart;
 // const chart2 = c3.generate({
 //   bindto: '#chart2',
