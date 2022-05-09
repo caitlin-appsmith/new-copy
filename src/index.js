@@ -12,7 +12,7 @@ function loadChart (json) {
   const columns2 = obj.data2;
   const pattern = obj.pattern;
   // const categories = obj.categories;
-  console.log(columns,chartType,pattern
+  console.log(columns,chartType,pattern,columns2
     // ,categories
     );
 
@@ -54,8 +54,10 @@ const chart = c3.generate({
     //   ['pears']
     // ]
   },
+  padding: {
+    right: 40},
   bar: {
-    width: 15
+    width:  20
     // {
     //     ratio: 0.7 // this makes bar width 50% of length between ticks
     // }
@@ -66,7 +68,7 @@ const chart = c3.generate({
 
   axis: {
       x: {
-        localtime: false,
+        localtime: true,
         
         // type: 'category',
         type: 'timeseries',
@@ -74,9 +76,9 @@ const chart = c3.generate({
         tick: {
             format: '%a, %e %b %Y',
             // fit: false,
-            // culling: false,
-            culling: {
-            max: 10},
+            culling: false,
+            // culling: {
+            // max: 10},
             // count:31,
             rotate: 50,
             multiline: false
@@ -102,16 +104,15 @@ regions: [
 //   {axis: 'y2', start: 1300, class: 'regionY2'},
 ],
 zoom: {
-  enabled: true,
+  enabled: false,
   // extent: [1, 100],
- 
   // rescale: true,
-  
 },
 
 // gauge: {
 //   max: 700
 // }
+
 });
 chart.legend.hide();
 window.updateChart = function (json) {
@@ -134,21 +135,95 @@ window.transformChart = function (type) {
 }};
 window.loadChart = loadChart;
 
+
+// CHART 2 - Single day sales Donut chart
+
+var data = [
+["April",8],
+["Eric Espina",5],
+["Ivor",8],
+["Krystal Porfida",8],
+["Mary Arciga",7],
+["Rica Yanes",3],
+["Samuel woodward",1],
+["Sean",12]
+];
+
+// THIS IS SUPPOSED TO SHOW VALUE IN LEGEND, BUT DOESN'T WORK
+// https://www.demo2s.com/javascript/javascript-c3-js-display-the-value-together-with-the-label-on-the-lege.html
+// var total = 0;
+// data.forEach(function (value) {
+//     total += value[1];
+
+//   });
+
 const chart2 = c3.generate({
   bindto: '#chart2',
   data: {
-    types: { sweets: 'bar', chocolate: 'spline' },
-    colors: {sweets: "blue", chocolate: "purple"},
-    columns: [
-      ['sweets', 90, 200, 100, 400, 150, 250],
-      ['chocolate', 50, 20, 10, 40, 15, 25]
-    ]
-  }
-
+    columns: data,
+    // [
+    //     ["April",8],
+    //     ["Eric Espina",5],
+    //     ["Ivor",8],
+    //     ["Krystal Porfida",8],
+    //     ["Mary Arciga",7],
+    //     ["Rica Yanes",3],
+    //     ["Samuel woodward",1],
+    //     ["Sean",12]
+    // ],
+    type: 'donut',
+  },
+  legend: {
+    show: true,
+    position: 'right',
+},
+  donut: {
+    title: "Selected Date",
+  //   label: {
+  //     format: function (value, ratio, id) {
+  //         return value;
+  //     }
+  // },
   
+},
+
+tooltip: {
+  format: {
+      value: function (value, ratio, id) {
+          return value;
+      }
+  }
 }
 
-);
+});
+
+// THIS IS SUPPOSED TO SHOW VALUE IN LEGEND, BUT DOESN'T WORK
+// https://www.demo2s.com/javascript/javascript-c3-js-display-the-value-together-with-the-label-on-the-lege.html
+// d3.select('#chart2').insert('div', '.chart').attr('class', 'legend').selectAll('span')
+//     .data(['April','Eric Espina','Ivor','Krystal Porfida','Mary Arciga','Rica Yanes','Samuel woodward','Sean'])
+//     .enter().append('div')
+//     .attr('data-id', function (id) {
+//     return id;
+// })
+//     .html(function (id) {
+//     return getDataValue(id);
+// })
+//     .each(function (id) {
+//     d3.select(this).style('background-color', chart2.color(id));
+// })
+
+// //calculate the legend value
+// function getDataValue(id) {
+//     var ret = "";
+//     data.forEach(function (value) {
+//         if (id == value[0]) {
+//             ret = value[0] + ": " + precision((value[1] / total));
+//         }
+//     });
+//     return ret;
+// }
+
+
 
 // const chart2 = c3.generate({
 //   bindto: '#chart2',
