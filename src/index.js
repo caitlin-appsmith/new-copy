@@ -10,6 +10,7 @@ function loadChart (json) {
   const chartType = obj.type;
   const columns = obj.data;
   const columns2 = obj.data2;
+  const date = obj.date;
   const pattern = obj.pattern;
   // const categories = obj.categories;
   console.log(columns,chartType,pattern,columns2
@@ -115,39 +116,36 @@ zoom: {
 
 });
 chart.legend.hide();
-window.updateChart = function (json) {
-  const obj = JSON.parse (json);
-  // const columns = JSON.parse (data);
-  const columns = obj.data;
-  // const categories = obj.categories;
-  console.log(columns);
-  chart.load({
-    x: 'x',
-    columns: columns, 
-    // categories: categories,
-    // , unload: ["oranges","apples"]
-  })
-};
 
-window.transformChart = function (type) {
-  console.log(type);
-  chart.transform(type);
-}};
-window.loadChart = loadChart;
 
+// window.updateChart = function (json) {
+//   const obj = JSON.parse (json);
+//   // const columns = JSON.parse (data);
+//   const columns = obj.data;
+//   // const categories = obj.categories;
+//   console.log(columns);
+//   chart.load({
+//     x: 'x',
+//     columns: columns, 
+
+    
+//     // categories: categories,
+//     // , unload: ["oranges","apples"]
+//   })
+// };
 
 // CHART 2 - Single day sales Donut chart
 
-var data = [
-["April",8],
-["Eric Espina",5],
-["Ivor",8],
-["Krystal Porfida",8],
-["Mary Arciga",7],
-["Rica Yanes",3],
-["Samuel woodward",1],
-["Sean",12]
-];
+// var data = [
+// ["April",8],
+// ["Eric Espina",5],
+// ["Ivor",8],
+// ["Krystal Porfida",8],
+// ["Mary Arciga",7],
+// ["Rica Yanes",3],
+// ["Samuel woodward",1],
+// ["Sean",12]
+// ];
 
 // THIS IS SUPPOSED TO SHOW VALUE IN LEGEND, BUT DOESN'T WORK
 // https://www.demo2s.com/javascript/javascript-c3-js-display-the-value-together-with-the-label-on-the-lege.html
@@ -160,7 +158,7 @@ var data = [
 const chart2 = c3.generate({
   bindto: '#chart2',
   data: {
-    columns: data,
+    columns: columns2,
     // [
     //     ["April",8],
     //     ["Eric Espina",5],
@@ -178,7 +176,7 @@ const chart2 = c3.generate({
     position: 'right',
 },
   donut: {
-    title: "Selected Date",
+    title: date, 
   //   label: {
   //     format: function (value, ratio, id) {
   //         return value;
@@ -196,6 +194,53 @@ tooltip: {
 }
 
 });
+
+
+window.updateChart = function (json) {
+  const obj = JSON.parse (json);
+  // const columns = JSON.parse (data);
+  const columns = obj.data;
+  const columns2 = obj.data2;
+
+  // const categories = obj.categories;
+  console.log(columns);
+  chart.load({
+    x: 'x',
+    columns: columns, 
+
+  })
+  chart2.load({columns: columns2})
+};
+
+
+window.updateChartDay = function (json) {
+  const obj = JSON.parse (json);
+  // const columns = JSON.parse (data);
+  // const columns = obj.data;
+  const columns2 = obj.data2;
+  const date = obj.date;
+  // // const categories = obj.categories;
+  // console.log(columns);
+  // chart.load({
+  //   x: 'x',
+  //   columns: columns, 
+
+  // })
+  chart2.load({
+    columns: columns2, 
+    
+    title: date,})
+};
+
+
+window.transformChart = function (type) {
+  console.log(type);
+  chart.transform(type);
+}};
+
+
+window.loadChart = loadChart;
+
 
 // THIS IS SUPPOSED TO SHOW VALUE IN LEGEND, BUT DOESN'T WORK
 // https://www.demo2s.com/javascript/javascript-c3-js-display-the-value-together-with-the-label-on-the-lege.html
