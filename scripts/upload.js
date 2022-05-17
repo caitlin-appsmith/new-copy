@@ -1,7 +1,7 @@
 const open = require("open");
 const path = require("path");
 const server = "$";
-const file = "jsDev";
+const file = "Two Men database";
 const uploadScript = "UploadToHTML";
 
 const fileUrl = `fmp://${server}/${file}?script=${uploadScript}&param=`;

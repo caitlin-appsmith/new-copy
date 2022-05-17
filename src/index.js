@@ -57,11 +57,12 @@ const chart = c3.generate({
   },
   padding: {
     right: 40},
-  bar: {
-    width:  20
-    // {
-    //     ratio: 0.7 // this makes bar width 50% of length between ticks
-    // }
+  bar: 
+    // width:  20
+    {
+      // width:20
+        ratio: 0.7 // this makes bar width 50% of length between ticks
+    
   },
   // color: {
   // //   pattern: ['purple', '#aec7e8', 'red', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5'],
@@ -77,7 +78,7 @@ const chart = c3.generate({
         tick: {
             format: '%a, %e %b %Y',
             // fit: false,
-            culling: false,
+            culling: true,
             // culling: {
             // max: 10},
             // count:31,
@@ -105,7 +106,7 @@ regions: [
 //   {axis: 'y2', start: 1300, class: 'regionY2'},
 ],
 zoom: {
-  enabled: false,
+  enabled: true,
   // extent: [1, 100],
   // rescale: true,
 },
@@ -136,16 +137,6 @@ chart.legend.hide();
 
 // CHART 2 - Single day sales Donut chart
 
-// var data = [
-// ["April",8],
-// ["Eric Espina",5],
-// ["Ivor",8],
-// ["Krystal Porfida",8],
-// ["Mary Arciga",7],
-// ["Rica Yanes",3],
-// ["Samuel woodward",1],
-// ["Sean",12]
-// ];
 
 // THIS IS SUPPOSED TO SHOW VALUE IN LEGEND, BUT DOESN'T WORK
 // https://www.demo2s.com/javascript/javascript-c3-js-display-the-value-together-with-the-label-on-the-lege.html
@@ -176,13 +167,7 @@ const chart2 = c3.generate({
     position: 'right',
 },
   donut: {
-    title: date, 
-  //   label: {
-  //     format: function (value, ratio, id) {
-  //         return value;
-  //     }
-  // },
-  
+    title: date,   
 },
 
 tooltip: {
@@ -201,12 +186,16 @@ window.updateChart = function (json) {
   // const columns = JSON.parse (data);
   const columns = obj.data;
   const columns2 = obj.data2;
-
+  const date2 = obj.date2;
+  
   // const categories = obj.categories;
   console.log(columns);
+  console.log('date 2 = ' + date2);
   chart.load({
     x: 'x',
     columns: columns, 
+    title: date2, 
+  
 
   })
   chart2.load({columns: columns2})
@@ -218,18 +207,24 @@ window.updateChartDay = function (json) {
   // const columns = JSON.parse (data);
   // const columns = obj.data;
   const columns2 = obj.data2;
-  const date = obj.date;
+  const date2 = obj.date2;
   // // const categories = obj.categories;
   // console.log(columns);
   // chart.load({
-  //   x: 'x',
-  //   columns: columns, 
-
-  // })
-  chart2.load({
-    columns: columns2, 
+    //   x: 'x',
+    //   columns: columns, 
     
-    title: date,})
+    // })
+    
+    chart2.donut.title = date2;
+    console.log('chart2 = ' + chart2.donut.title);
+
+  chart2.load({
+    unload: (true),
+    columns: columns2, 
+  })
+  document.querySelector('#chart2 .c3-chart-arcs-title').innerHTML = date2 + "  " + date2 ;
+
 };
 
 
